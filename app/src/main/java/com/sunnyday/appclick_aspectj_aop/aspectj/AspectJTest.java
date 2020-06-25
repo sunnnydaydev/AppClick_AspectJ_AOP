@@ -42,7 +42,7 @@ public class AspectJTest {
         long startTime = System.currentTimeMillis();
         try {
             // around 会默认拦截被切入的方法。可以使用proceed方法手动释放下原方法。
-            proceedingJoinPoint.proceed(); // 此方法之前的代码会在切点之前执行，此方法之后的代码会在切点之后执行。
+            proceedingJoinPoint.proceed(); // proceedingJoinPoint.proceed()此方法之前的代码会在切点之前执行，此方法之后的代码会在切点之后执行。
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

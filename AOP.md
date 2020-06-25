@@ -12,7 +12,7 @@
 
 ### AOP术语
 
-> 不得不说这些术语乍一看真的有点不好理解，但是当你过一遍结合栗子实践下都是过来人了。。。
+> 不得不说这些术语乍一看真的有点不好理解，但是当你过一遍结合栗子实践下就是过来人了。。。
 
 ###### 1、术语介绍
 
@@ -37,6 +37,14 @@
 > 2、先理解为切面就是一个类即可。
 >
 > 3、如何把切面切入目标方法？这个就要借助一些技术了例如本文基于AOP思想的AspectJ技术。给自定义的类加上特殊注解这个类就是切面类了，给方法加上before注解就可以增强筛选的切点方法了。
+
+###### 3、AOP织入方式
+
+> 根据不同的实现技术，AOP有三种不同的织入方式:
+>
+> - 编译期织入，这要求使用特殊的Java编译器。
+> - 类装载期织入，这要求使用特殊的类装载器。
+> - 动态代理织入，在运行期为目标类添加增强生成子类的方式。（Spring框架采取方式）
 
 
 
@@ -64,8 +72,6 @@
 
 - 不完整写法：execution(<修饰符>? <返回类型> <方法名>(<参数>) <异常>?)
 
-  ​
-
 - 完整写法：execution(<@注解类型>? <修饰符>? <返回类型> <方法名>(<参数>) <异常>?)
 
 （1）解释
@@ -90,11 +96,9 @@
     }
 ```
 
+# Talk is cheap. Show me the code.
 
-
-### 自己动手玩玩
-
-> bb了一大堆不练习还是不行，接下来就联系下，针对MainActivity的一个方法进行增强。
+> bb了一大堆不练习还是不行，接下来就练习下，针对MainActivity的一个方法进行增强。
 
 ###### 1、AspectJ在安卓上的使用
 
@@ -102,7 +106,7 @@
 >
 > 1、android gradle配置下引入：通过在Gradle的构建脚本中，定义任务来使得项目执行ajc编译，将AOP的Module编织进入到目标工程中，从而达到非侵入式AOP的目的。
 >
-> 2、通过Gradle Plugin也可以通过插件来使用AspectJ。目前有很多开源的类似项目（插件）
+> 2、通过Gradle Plugin也可以通过插件来使用AspectJ。目前有很多开源的类似项目（插件，例如JakeWharton的hugo）
 >
 > 本文就讲解第一种方式，至于使用Gradle Plugin，需要具备gradle 自定义插件的知识，等文章末尾给出连接单独讲解。
 
@@ -111,7 +115,6 @@
 （1）工程的build.gradle下插件引入
 
 ```java
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
     repositories {
@@ -148,26 +151,6 @@ task clean(type: Delete) {
 （2）app的build.gradle下引入依赖
 
 ```java
-apply plugin: 'com.android.application'
-
-android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-    defaultConfig {
-        applicationId "com.sunnyday.appclick_aspectj_aop"
-        minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -180,6 +163,7 @@ dependencies {
 }
 
 // aspectj（直接copy来即可）
+//代码放置位置与dependencies闭包同级即可
 import org.aspectj.bridge.IMessage
 import org.aspectj.bridge.MessageHandler
 import org.aspectj.tools.ajc.Main
@@ -252,7 +236,7 @@ public class AspectJTest {
         Log.d(TAG, "around method execute...");
        
             // around 会默认拦截被切入的方法。可以使用proceed方法手动释放下原方法。
-            proceedingJoinPoint.proceed(); // 此方法之前的代码会在切点之前执行，此方法之后的代码会在切点之后执行。
+            proceedingJoinPoint.proceed(); // 此句代码之前的代码会在切点之前执行，此句代码之后的代码会在切点之后执行。
     }
 
     @After("pointCut()")
@@ -282,7 +266,7 @@ public class AspectJTest {
 >
 > 2、为啥设计了 around方法，和 before after冲突吗？ 
 >
-> 个人答案，在around方便处理方法执行前后的逻辑。如果放到两个不同的方法，开发者的逻辑处理可能比较麻烦。
+> 个人认为，在around方便处理方法执行前后的逻辑。如果放到两个不同的回调方法中，开发者的逻辑处理可能比较麻烦。
 
 ###### 4、JointPoint：切点信息的封装类
 
@@ -319,7 +303,7 @@ public class AspectJTest {
 
 execution(<@注解类型>? <修饰符>? <返回类型> <方法名>(<参数>) <异常>?)
 
-> 还记得上文介绍的这种写法吧，只是表达式里面多了个可选的注解类型。
+> 还记得上文介绍的这种写法吧，只是表达式里面多了个可选的注解类型。使用注解的方式方便解耦。其他和原来的方式没啥区别的。
 
 ###### 2、自定义注解标记目标方法
 
@@ -359,6 +343,8 @@ public @interface MyAspectJ {
 
 ### 写到烂的栗子：方法耗时统计
 
+> 貌似网上aop的文章大多都是用这个例子练习的，，，，其实代码也就那一丢丢。哈哈这里也搞一下吧！！！
+
 ```java
  @Around("pointCut()")
     public void around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
@@ -366,7 +352,7 @@ public @interface MyAspectJ {
         long startTime = System.currentTimeMillis();
         try {
             // around 会默认拦截被切入的方法。可以使用proceed方法手动释放下原方法。
-            proceedingJoinPoint.proceed(); // 此方法之前的代码会在切点之前执行，此方法之后的代码会在切点之后执行。
+            proceedingJoinPoint.proceed(); //   proceedingJoinPoint.proceed()此方法之前的代码会在切点之前执行，此方法之后的代码会在切点之后执行。
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -382,4 +368,10 @@ public @interface MyAspectJ {
 
 ### 小结
 
-> AspectJ入门太简单了，感觉相对注解处理器简单些，至于实战，以及插件形式使用AspectJ就参考下几篇总结吧：使用AspectJ进行全埋点、使用gradle 插件再安卓上跑AspectJ。
+> 总的来说aop入门还是很简单的，相对APT容易些，API少点，就是那几个术语写写栗子就明白了。至于AspectJ实战AppClick埋点、使用安卓Gradle方式配置AspectJ，就参考本项目README吧。
+
+参考：
+
+- 《安卓全埋点解决方案》第8章　$AppClick全埋点方案5：AspectJ
+
+  ​
