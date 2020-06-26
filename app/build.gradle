@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.sunnyday.appclick_aspectj_aop'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"

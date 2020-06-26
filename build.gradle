@@ -2,39 +2,34 @@
 
 buildscript {
     repositories {
-        maven {
-            url 'http://maven.aliyun.com/nexus/content/groups/public/'
-        }
-        maven {
-            url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
+        maven{
+            url uri('./repo')
         }
         mavenCentral()
         google()
         jcenter()
-        
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         //aspectj
         classpath 'org.aspectj:aspectjtools:1.8.9'
         classpath 'org.aspectj:aspectjweaver:1.8.9'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath 'com.sunnyday.appclick_aspectj_aop:myplugin:1.0.0'
     }
 }
 
 allprojects {
     repositories {
-        maven {
-            url 'http://maven.aliyun.com/nexus/content/groups/public/'
-        }
-        maven {
-            url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'
+        maven{
+            url uri('./repo')
         }
         mavenCentral()
         google()
         jcenter()
-        
+
     }
 }
 
