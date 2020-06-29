@@ -364,7 +364,33 @@ public @interface MyAspectJ {
     }
 ```
 
+### 补充：call与execution区别
 
+>在切点表达式中，execution与call是可以互换的那么二者有啥区别呢？
+>当call捕获joinPoint时，捕获的是签名方法的调用点；而 execution 捕获joinPoint时，捕获的则是方法的执行点。
+简单栗子来说就是call的 before、after切入到调用方法前后。execution的 before、after切入到方法的首行末行。
+
+###### 伪代码& Call
+
+```java
+
+        //执行 Call (before) 代码
+        AspectJTest(null);
+        //执行Call(after)
+
+```
+
+###### 伪代码& execution
+
+```java
+              @MyAspectJ
+               public void AspectJTest(View view) {
+                  execution(before)
+                  Log.d(TAG, "AspectJ Test!!!");
+                  SystemClock.sleep(500);
+                  execution(after)
+           }
+```
 
 ### 小结
 

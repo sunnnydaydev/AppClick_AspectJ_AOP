@@ -17,9 +17,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+
     @MyAspectJ
     public void AspectJTest(View view) {
+        execution(before)
         Log.d(TAG, "AspectJ Test!!!");
         SystemClock.sleep(500);
+        execution(after)
     }
 }
+
