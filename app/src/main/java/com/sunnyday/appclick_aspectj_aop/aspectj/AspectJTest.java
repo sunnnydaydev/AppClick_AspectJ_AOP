@@ -25,9 +25,9 @@ import static com.sunnyday.appclick_aspectj_aop.MainActivity.TAG;
  */
 @Aspect
 public class AspectJTest {
-
-   // @Pointcut("execution(* com.sunnyday.appclick_aspectj_aop.MainActivity.AspectJTest(..))")
-    @Pointcut("execution(@com.sunnyday.appclick_aspectj_aop.aspectj.MyAspectJ * *(..))") //使用注解的方式
+    @Pointcut("execution(* android.view.View.OnClickListener.onClick(android.view.View)")
+    //@Pointcut("execution(* com.sunnyday.appclick_aspectj_aop.MainActivity.AspectJTest(..))")
+   // @Pointcut("execution(@com.sunnyday.appclick_aspectj_aop.aspectj.MyAspectJ * *(..))") //使用注解的方式
     public void pointCut() {
     }
 

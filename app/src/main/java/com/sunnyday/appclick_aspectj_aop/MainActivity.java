@@ -16,13 +16,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AspectJTest();
+
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "test!");
+            }
+        });
     }
 
 
-    @MyAspectJ
-    public void AspectJTest(View view) {
+    public void AspectJTest() {
         Log.d(TAG, "AspectJ Test!!!");
-        SystemClock.sleep(500);
     }
 }
 

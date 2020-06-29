@@ -4,6 +4,10 @@
 
 [自定义Gradle插件](https://blog.csdn.net/qq_38350635/article/details/106986739)
 
-[基于Aspectj技术的AppClicl全埋点实现]
+### 基于Aspectj技术的AppClicl全埋点实现
 
-待续！！！
+### 原理：
+
+> 基于aspectJ 拦截 android.view.View.OnClickListener.onClick(android.view.View)即可
+
+待续！

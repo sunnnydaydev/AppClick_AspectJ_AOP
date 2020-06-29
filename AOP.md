@@ -106,7 +106,7 @@
 >
 > 1、android gradle配置下引入：通过在Gradle的构建脚本中，定义任务来使得项目执行ajc编译，将AOP的Module编织进入到目标工程中，从而达到非侵入式AOP的目的。
 >
-> 2、通过Gradle Plugin也可以通过插件来使用AspectJ。目前有很多开源的类似项目（插件，例如JakeWharton的hugo）
+> 2、通过Gradle Plugin也可以通过插件来使用AspectJ。其实使用和方式1差不多，只是方式1的步骤放到了自定义插件中。然后在自定义插件中做逻辑。目前有很多开源的类似项目（插件，例如JakeWharton的hugo）
 >
 > 本文就讲解第一种方式，至于使用Gradle Plugin，需要具备gradle 自定义插件的知识，等文章末尾给出连接单独讲解。
 
