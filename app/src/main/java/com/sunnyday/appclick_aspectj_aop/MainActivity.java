@@ -21,10 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     @MyAspectJ
     public void AspectJTest(View view) {
-        execution(before)
         Log.d(TAG, "AspectJ Test!!!");
         SystemClock.sleep(500);
-        execution(after)
     }
 }
 
