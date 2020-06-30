@@ -1,2 +1,2 @@
-include ':app', ':myplugin'
+include ':app', ':myplugin', ':tracksdk'
 rootProject.name='AppClick_AspectJ_AOP'

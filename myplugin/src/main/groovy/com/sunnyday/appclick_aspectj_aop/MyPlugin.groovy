@@ -16,5 +16,6 @@ class MyPlugin implements Plugin<Project> {
         project.afterEvaluate {
           println("debug="+project.MyPlugin.debug)
         }
+
     }
 }
