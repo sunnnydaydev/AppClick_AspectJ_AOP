@@ -30,7 +30,6 @@ dependencies {
     implementation 'org.aspectj:aspectjrt:1.8.9'//aspectj
     //implementation 'org.aspectj:aspectjtools:1.8.9'
 
-    implementation project(':tracksdk')
 }
 
 // aspectj（直接copy来即可）
