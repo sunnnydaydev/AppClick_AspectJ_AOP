@@ -106,7 +106,7 @@
 >
 > 1、android gradle配置下引入：通过在Gradle的构建脚本中，定义任务来使得项目执行ajc编译，将AOP的Module编织进入到目标工程中，从而达到非侵入式AOP的目的。
 >
-> 2、通过Gradle Plugin也可以通过插件来使用AspectJ。其实使用和方式1差不多，只是方式1的步骤放到了自定义插件中。然后在自定义插件中做逻辑。目前有很多开源的类似项目（插件，例如JakeWharton的hugo）
+> 2、通过Gradle Plugin也可以来使用AspectJ。其实插件就是把AspectJ的集成封装了一下，或者封装后扩展下原有的功能。典型代表栗子就是沪江网校的AspectJX。
 >
 > 本文就讲解第一种方式，至于使用Gradle Plugin，需要具备gradle 自定义插件的知识，等文章末尾给出连接单独讲解。
 
@@ -368,7 +368,7 @@ public @interface MyAspectJ {
 
 >在切点表达式中，execution与call是可以互换的那么二者有啥区别呢？
 >当call捕获joinPoint时，捕获的是签名方法的调用点；而 execution 捕获joinPoint时，捕获的则是方法的执行点。
-简单栗子来说就是call的 before、after切入到调用方法前后。execution的 before、after切入到方法的首行末行。
+>简单栗子来说就是call的 before、after切入到调用方法前后。execution的 before、after切入到方法的首行末行。
 
 ###### 伪代码& Call
 
@@ -394,7 +394,9 @@ public @interface MyAspectJ {
 
 ### 小结
 
-> 总的来说aop入门还是很简单的，相对APT容易些，API少点，就是那几个术语写写栗子就明白了。至于AspectJ实战AppClick埋点、使用安卓Gradle方式配置AspectJ，就参考本项目README吧。
+> AOP其实是一个概念，同时也是一个规范，它本身并没有规定具体实现的语言。而AspectJ实际上是对AOP编程思想的实现，它能够和Java配合起来使用。AspectJ最核心的模块就是它提供的ajc编译器，它其实就是将AspectJ的代码在编译期插入到目标程序当中，运行时跟在其他地方没有什么两样。因此要使用AspectJ，最关键的就是使用它的ajc编译器去编译代码。ajc会构建目标程序与AspectJ代码的联系，在编译期将AspectJ代码插入到被切出的PointCut中，从而达到AOP的目的。
+>
+> 总的来说aop入门还是很简单的，相对APT容易些，API少点，就是那几个术语写写栗子就明白了。至于AspectJ实战AppClick埋点、使用安卓Gradle Plugn方式配置AspectJ，就参考本项目README吧。
 
 参考：
 
