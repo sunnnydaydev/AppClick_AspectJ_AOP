@@ -126,8 +126,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
         //aspectj
-        classpath 'org.aspectj:aspectjtools:1.8.9'
-        classpath 'org.aspectj:aspectjweaver:1.8.9'
+        classpath 'org.aspectj:aspectjtools:1.8.9'//ajc编译器等工具库
+        classpath 'org.aspectj:aspectjweaver:1.8.9'// 切点表达式等类库
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -159,7 +159,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'org.aspectj:aspectjrt:1.8.9'//aspectj
+    implementation 'org.aspectj:aspectjrt:1.8.9'//aspectj 注解类库
 }
 
 // aspectj（直接copy来即可）
